@@ -1,25 +1,49 @@
-
-from pymouse import PyMouse
+import mouse
 import time
 import random
 
-# t = random.randint(70,130)
-t=300
-times_to_repeat = t
-m = PyMouse()
+times_to_repeat = 40
 
-while times_to_repeat >= 0:
-        x = random.uniform(770,790)
-        y = random.uniform(740,780)
-        z1 = random.uniform(0,1)
-	z2 = random.uniform(0,3)
-	z = (z1+z2)/2
+for t in range(times_to_repeat):
+    try:
+        t += 1
+        x, y = random.uniform(770, 790), random.uniform(740, 780)
+        z = random.uniform(0.4, 0.6)
+    
+        mouse.move(x, y)
+        mouse.click()
+        
+        if t % 2 == 0 and t % 10 != 0:
+            alt_z = random.uniform(0.7, 1)
+            choice = random.choice([z, alt_z])
+            time.sleep(choice)
 
-        x_dim, y_dim = m.screen_size()
-        m.click(x, y, 1)
+        elif t % 3 == 0:
+            alt_z = random.uniform(1, 3)
+            choice = random.choice([z, alt_z])
+            time.sleep(choice)
 
-        times_to_repeat -= 1
-        print('[clickin'...]')
-        time.sleep(z)
-        if times_to_repeat == 0:
-                break
+        elif t % 5 == 0:
+            alt_z = random.uniform(3, 5)
+            choice = random.choice([z, alt_z])
+            time.sleep(choice)
+
+        elif t % 7 == 0:
+            alt_z = random.uniform(5, 7)
+            choice = random.choice([z, alt_z])
+            time.sleep(choice)
+
+        elif t % 10 == 0:
+            alt_z = random.uniform(0.4, 23)
+            choice = random.choice([z, alt_z])
+            time.sleep(choice)
+
+        else:
+            choice = z
+            time.sleep(choice)
+
+        print('Click: {}'.format(str(t)), '| Slept: {}'.format(str(choice)))
+        t -= 1
+
+    except KeyboardInterrupt:
+        break
