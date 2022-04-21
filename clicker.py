@@ -1,3 +1,4 @@
+# I am certain of nothing but of the holiness of the heart's affections and the truth of imagination
 import mouse
 import time
 import random
