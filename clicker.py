@@ -2,13 +2,21 @@
 import mouse
 import time
 import random
+import numpy as np
+from bool_converter import strtobool
 
-times_to_repeat = 40
+times_to_repeat = 999
 
 for t in range(times_to_repeat):
     try:
+        is_repeat = np.random.choice(a=[True, False], size=(1,), p=[0.1, 0.9])
+        is_repeat = strtobool(''.join([str(x) for x in is_repeat]))
+
+        if is_repeat == False or t == 0:
+            x, y = 870, 630
+            x, y = random.uniform(x - 10, x + 10), random.uniform(y - 20, y + 20)
+            
         t += 1
-        x, y = random.uniform(770, 790), random.uniform(740, 780)
         z = random.uniform(0.4, 0.6)
     
         mouse.move(x, y)
