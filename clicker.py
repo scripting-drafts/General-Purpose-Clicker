@@ -4,55 +4,77 @@ import time
 import random
 import numpy as np
 from bool_converter import strtobool
+from sys import exit
+from threading import Thread
+from pynput import keyboard
+import os
 
 times_to_repeat = 999
 
-for t in range(times_to_repeat):
+def on_press(key):
+    print('{0} pressed'.format(key))
     try:
-        is_repeat = np.random.choice(a=[True, False], size=(1,), p=[0.1, 0.9])
-        is_repeat = strtobool(''.join([str(x) for x in is_repeat]))
+        if key.char == keyboard.Key.esc:
+            os._exit(1)
+    except AttributeError:
+        if key == keyboard.Key.esc:
+            os._exit(1)
 
-        if is_repeat == False or t == 0:
-            x, y = 870, 630
-            x, y = random.uniform(x - 10, x + 10), random.uniform(y - 20, y + 20)
-            
-        t += 1
-        z = random.uniform(0.4, 0.6)
-    
-        mouse.move(x, y)
-        mouse.click()
+def on_release(key):
+    print('{0} release'.format(key))    
+
+listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+listener.start()
+
+# with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
+for t in range(times_to_repeat):
+    # listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+    # try:
+    is_repeat = np.random.choice(a=[True, False], size=(1,), p=[0.1, 0.9])
+    is_repeat = strtobool(''.join([str(x) for x in is_repeat]))
+
+    if is_repeat == False or t == 0:
+        x, y = 870, 630
+        x, y = random.uniform(x - 10, x + 10), random.uniform(y - 20, y + 20)
         
-        if t % 2 == 0 and t % 10 != 0:
-            alt_z = random.uniform(0.7, 1)
-            choice = random.choice([z, alt_z])
-            time.sleep(choice)
+    t += 1
+    z = random.uniform(0.4, 0.6)
 
-        elif t % 3 == 0:
-            alt_z = random.uniform(1, 3)
-            choice = random.choice([z, alt_z])
-            time.sleep(choice)
+    mouse.move(x, y)
+    mouse.click()
+    
+    if t % 2 == 0 and t % 10 != 0:
+        alt_z = random.uniform(0.7, 1)
+        choice = random.choice([z, alt_z])
+        time.sleep(choice)
 
-        elif t % 5 == 0:
-            alt_z = random.uniform(3, 5)
-            choice = random.choice([z, alt_z])
-            time.sleep(choice)
+    elif t % 3 == 0:
+        alt_z = random.uniform(1, 3)
+        choice = random.choice([z, alt_z])
+        time.sleep(choice)
 
-        elif t % 7 == 0:
-            alt_z = random.uniform(5, 7)
-            choice = random.choice([z, alt_z])
-            time.sleep(choice)
+    elif t % 5 == 0:
+        alt_z = random.uniform(3, 5)
+        choice = random.choice([z, alt_z])
+        time.sleep(choice)
 
-        elif t % 10 == 0:
-            alt_z = random.uniform(0.4, 23)
-            choice = random.choice([z, alt_z])
-            time.sleep(choice)
+    elif t % 7 == 0:
+        alt_z = random.uniform(5, 7)
+        choice = random.choice([z, alt_z])
+        time.sleep(choice)
 
-        else:
-            choice = z
-            time.sleep(choice)
+    elif t % 10 == 0:
+        alt_z = random.uniform(0.4, 23)
+        choice = random.choice([z, alt_z])
+        time.sleep(choice)
 
-        print('Click: {}'.format(str(t)), '| Slept: {}'.format(str(choice)))
-        t -= 1
+    else:
+        choice = z
+        time.sleep(choice)
 
-    except KeyboardInterrupt:
-        break
+    print('Click: {}'.format(str(t)), '| Slept: {}'.format(str(choice)))
+    t -= 1
+
+    # except Exception:
+    #     listener.join()
+
