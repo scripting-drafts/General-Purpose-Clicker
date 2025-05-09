@@ -1,4 +1,3 @@
-# I am certain of nothing but of the holiness of the heart's affections and the truth of imagination
 import mouse
 import time
 import random
@@ -18,24 +17,20 @@ stop_key = stop_key_options['ctrl+c']
 
 def on_press(key):
     '''Stops if stop_key is pressed'''
-    print('{0} pressed'.format(key))
+    if key != keyboard.Key.ctrl_l:
+        print('{0} pressed'.format(key))
+
     try:
         if key.char == stop_key:
             os._exit(1)
     except AttributeError:
         if key == stop_key:
-            os._exit(1)
+            os._exit(1) 
 
-def on_release(key):
-    print('{0} release'.format(key))    
-
-listener = keyboard.Listener(on_press=on_press, on_release=on_release)
+listener = keyboard.Listener(on_press=on_press)
 listener.start()
 
-# with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
 for t in range(times_to_repeat):
-    # listener = keyboard.Listener(on_press=on_press, on_release=on_release)
-    # try:
     is_repeat = np.random.choice(a=[True, False], size=(1,), p=[0.1, 0.9])
     is_repeat = strtobool(''.join([str(x) for x in is_repeat]))
 
@@ -80,7 +75,4 @@ for t in range(times_to_repeat):
 
     print('Click: {}'.format(str(t)), '| Slept: {}'.format(str(choice)))
     t -= 1
-
-    # except Exception:
-    #     listener.join()
 
