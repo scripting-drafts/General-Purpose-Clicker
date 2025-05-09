@@ -20,10 +20,10 @@ def on_press(key):
     '''Stops if stop_key is pressed'''
     print('{0} pressed'.format(key))
     try:
-        if key.char == cutkey:
+        if key.char == stop_key:
             os._exit(1)
     except AttributeError:
-        if key == cutkey:
+        if key == stop_key:
             os._exit(1)
 
 def on_release(key):
