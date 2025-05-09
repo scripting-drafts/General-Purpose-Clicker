@@ -10,14 +10,20 @@ from pynput import keyboard
 import os
 
 times_to_repeat = 950
+stop_key_options = {
+    'esc': keyboard.Key.esc,
+    'ctrl+c': chr(ord("C")-64)
+}
+stop_key = stop_key_options['ctrl+c']
 
 def on_press(key):
+    '''Stops if stop_key is pressed'''
     print('{0} pressed'.format(key))
     try:
-        if key.char == keyboard.Key.esc:
+        if key.char == cutkey:
             os._exit(1)
     except AttributeError:
-        if key == keyboard.Key.esc:
+        if key == cutkey:
             os._exit(1)
 
 def on_release(key):
