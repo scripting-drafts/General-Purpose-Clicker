@@ -9,7 +9,7 @@ from threading import Thread
 from pynput import keyboard
 import os
 
-times_to_repeat = 999
+times_to_repeat = 950
 
 def on_press(key):
     print('{0} pressed'.format(key))
