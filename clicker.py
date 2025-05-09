@@ -9,11 +9,7 @@ from pynput import keyboard
 import os
 
 times_to_repeat = 950
-stop_key_options = {
-    'esc': keyboard.Key.esc,
-    'ctrl+c': chr(ord("C")-64)
-}
-stop_key = stop_key_options['ctrl+c']
+stop_key = chr(ord("C")-64)
 
 def on_press(key):
     '''Stops if stop_key is pressed'''
