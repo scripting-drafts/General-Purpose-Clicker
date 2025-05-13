@@ -69,6 +69,6 @@ for t in range(times_to_repeat):
         choice = z
         time.sleep(choice)
 
-    print('Click: {}'.format(str(t)), '| Slept: {}'.format(str(choice)))
+    print(f'Click {str(t)} | Slept {str(choice)}')
     t -= 1
 
